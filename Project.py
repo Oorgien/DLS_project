@@ -1,25 +1,9 @@
 import telebot as tb
 from telebot import types
 
-from PIL import Image
-
-
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-
-import matplotlib.pyplot as plt
 
 import torchvision
-import torchvision.transforms as transforms
-import torchvision.models as models
-
-import copy
-import deepmux
-
-from IPython.display import clear_output
-import requests
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 token = 'DLS_21_94D655BACD6A2EC0'
