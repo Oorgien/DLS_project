@@ -244,16 +244,16 @@ class BaseModel(ABC):
                     del state_dict[unexpected_2[i]]
                 # end fix
                 net.load_state_dict(state_dict)
-                model = net
-                model.eval()
-                model.cuda()
-                # model.half()
+                if False:
+                    model = net
+                    model.eval()
+                    model.cuda()
 
-                trace_input = torch.ones(1, 3, 256, 256).cuda()
-                model = model.eval()
-                jit_model = torch.jit.trace(model.float(), trace_input)
+                    trace_input = torch.ones(1, 3, 256, 256).cuda()
+                    model = model.eval()
+                    jit_model = torch.jit.trace(model.float(), trace_input)
 
-                torch.jit.save(jit_model, str(self.save_dir) + '/' + '%s_net_%s.jit' % (epoch, name))
+                    torch.jit.save(jit_model, str(self.save_dir) + '/' + '%s_net_%s.jit' % (epoch, name))
 
     def print_networks(self, verbose):
         """Print the total number of parameters in the network and (if verbose) network architecture

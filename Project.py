@@ -18,7 +18,7 @@ bot = tb.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['help'])
 def help_func(message):
-    bot.reply_to(message, "Напечатайте \"start\", чтобы выбрать способ обработки фото")
+    bot.reply_to(message, "Напечатайте \"/start\", чтобы выбрать способ обработки фото")
 
 
 @bot.message_handler(commands=['start'])
@@ -144,6 +144,7 @@ def run_GAN(message, name):
         model = 'style_vangogh_pretrained'
 
     res = GanScrypt('images/content.jpg', model, 255)
+    # rewrite jit files
     # res = GanModel(model).forward('images/content.jpg', 255)
 
     torchvision.utils.save_image(res, 'images/output.jpg')
