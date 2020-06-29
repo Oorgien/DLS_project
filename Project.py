@@ -143,8 +143,8 @@ def run_GAN(message, name):
     elif name == 'vangogh':
         model = 'style_vangogh_pretrained'
 
-    res = GanScrypt('images/content.jpg', model, 255)
-    # res = GanModel(model).forward('images/content.jpg', 255)
+    # res = GanScrypt('images/content.jpg', model, 255)
+    res = GanModel(model).forward('images/content.jpg', 255)
 
     torchvision.utils.save_image(res, 'images/output.jpg')
     photo = open('images/output.jpg', 'rb')

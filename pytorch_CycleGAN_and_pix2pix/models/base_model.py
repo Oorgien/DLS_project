@@ -181,7 +181,7 @@ class BaseModel(ABC):
         for name in self.model_names:
             if isinstance(name, str):
                 load_filename = '%s_net_%s.pth' % (epoch, name)
-                load_path = str(self.save_dir) + '/' +  str(load_filename)
+                load_path = str(self.save_dir) + '/' + str(load_filename)
                 net = getattr(self, 'net' + name)
                 if isinstance(net, torch.nn.DataParallel):
                     net = net.module
@@ -244,6 +244,16 @@ class BaseModel(ABC):
                     del state_dict[unexpected_2[i]]
                 # end fix
                 net.load_state_dict(state_dict)
+                model = net
+                model.eval()
+                model.cuda()
+                # model.half()
+
+                trace_input = torch.ones(1, 3, 256, 256).cuda()
+                model = model.eval()
+                jit_model = torch.jit.trace(model.float(), trace_input)
+
+                torch.jit.save(jit_model, str(self.save_dir) + '/' + '%s_net_%s.jit' % (epoch, name))
 
     def print_networks(self, verbose):
         """Print the total number of parameters in the network and (if verbose) network architecture
