@@ -25,7 +25,8 @@ class GanModel(nn.Module):
     def __init__(self, model_name):
         super(GanModel, self).__init__()
         self.model_name = './pytorch_CycleGAN_and_pix2pix/checkpoints/' + model_name + '/latest_net_G.pth'
-        self.model = self.get_model()
+        self.model_jit_name = './pytorch_CycleGAN_and_pix2pix/checkpoints/' + model_name + '/latest_net_G.jit'
+        self.model = self.load_model()
 
     def get_model(self):
         norm_layer = functools.partial(nn.InstanceNorm2d, affine=False, track_running_stats=False)
@@ -37,6 +38,15 @@ class GanModel(nn.Module):
         # torch.cuda.empty_cache()
         # torch.cuda.ipc_collect()
         # torch.backends.cudnn.benchmark = True
+
+    def load_model(self):
+        model_file = self.model_jit_name
+        model = torch.jit.load(model_file).cuda()
+        model = model.eval()
+        torch.cuda.empty_cache()
+        torch.cuda.ipc_collect()
+        torch.backends.cudnn.benchmark = True
+        return model
 
     def forward(self, img, img_size):
 
@@ -83,3 +93,6 @@ def GanScrypt(img_path, model_name, imsize):
     normalization_mean = torch.tensor([0.5, 0.5, 0.5]).to(device)
     normalization_std = torch.tensor([0.5, 0.5, 0.5]).to(device)
     return visuals['fake'] * normalization_mean.view(-1, 1, 1) + normalization_std.view(-1, 1, 1)
+
+
+
