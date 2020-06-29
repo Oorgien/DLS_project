@@ -1,17 +1,8 @@
-deepmux==0.3.1
-
-json5==0.9.1
-numpy==1.18.1
-pep8==1.7.1
 Pillow==7.1.2
 pyTelegramBotAPI==3.7.1
 requests==2.22.0
 torch==1.5.1
 torchvision==0.6.1
 visdom==0.1.8.9
-websocket-client==0.57.0
-wget==3.2
-
-
 dominate>=2.3.1
 
