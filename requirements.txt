@@ -12,3 +12,6 @@ visdom==0.1.8.9
 websocket-client==0.57.0
 wget==3.2
 
+
+dominate>=2.3.1
+
