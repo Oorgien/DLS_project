@@ -18,7 +18,8 @@ from IPython.display import clear_output
 
 from Images import Preproc, Normalization
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 
 def gram_matrix(input):
         batch_size , h, w, f_map_num = input.size()

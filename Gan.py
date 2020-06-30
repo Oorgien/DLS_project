@@ -7,13 +7,14 @@ import torch.nn as nn
 
 from Images import Preproc, Normalization
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 import pytorch_CycleGAN_and_pix2pix.models.networks as net
 import functools
 
 from pytorch_CycleGAN_and_pix2pix.options.test_options import TestOptions
 from pytorch_CycleGAN_and_pix2pix.models import create_model
+
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 
 
 class GanModel(nn.Module):

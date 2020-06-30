@@ -30,9 +30,11 @@ class BaseModel(ABC):
             -- self.optimizers (optimizer list):    define and initialize optimizers. You can define one optimizer for each network. If two networks are updated at the same time, you can use itertools.chain to group them. See cycle_gan_model.py for an example.
         """
         self.opt = opt
-        self.gpu_ids = opt.gpu_ids
+        # self.gpu_ids = opt.gpu_ids
         self.isTrain = opt.isTrain
-        self.device = torch.device('cuda:{}'.format(self.gpu_ids[0])) if self.gpu_ids else torch.device('cpu')  # get device name: CPU or GPU
+        self.gpu_ids = ''
+        # self.device = torch.device('cuda:{}'.format(self.gpu_ids[0])) if self.gpu_ids else torch.device('cpu')  # get device name: CPU or GPU
+        self.device = torch.device("cpu")
         self.save_dir = str(opt.checkpoints_dir) + '/' + str(opt.name)  # save all the checkpoints to save_dir
         if opt.preprocess != 'scale_width':  # with [scale_width], input images might have different sizes, which hurts the performance of cudnn.benchmark.
             torch.backends.cudnn.benchmark = True
@@ -188,7 +190,7 @@ class BaseModel(ABC):
                 print('loading the model from %s' % load_path)
                 # if you are using PyTorch newer than 0.4 (e.g., built from
                 # GitHub source), you can remove str() on self.device
-                state_dict = torch.load(load_path, map_location=str(self.device))
+                state_dict = torch.load(load_path, map_location=torch.device("cpu"))
                 if hasattr(state_dict, '_metadata'):
                     del state_dict._metadata
 
@@ -244,6 +246,7 @@ class BaseModel(ABC):
                     del state_dict[unexpected_2[i]]
                 # end fix
                 net.load_state_dict(state_dict)
+<<<<<<< Updated upstream
                 model = net
                 model.eval()
                 model.cuda()
@@ -252,6 +255,16 @@ class BaseModel(ABC):
                 trace_input = torch.ones(1, 3, 256, 256).cuda()
                 model = model.eval()
                 jit_model = torch.jit.trace(model.float(), trace_input)
+=======
+                if True:
+                    model = net
+                    model.eval()
+                    # model.cuda()
+
+                    # trace_input = torch.ones(1, 3, 256, 256).cuda()
+                    model = model.eval()
+                    jit_model = torch.jit.trace(model.float(), torch.ones(1, 3, 256, 256))
+>>>>>>> Stashed changes
 
                 torch.jit.save(jit_model, str(self.save_dir) + '/' + '%s_net_%s.jit' % (epoch, name))
 

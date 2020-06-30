@@ -4,13 +4,13 @@ from telebot import types
 import torch
 
 import torchvision
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-token = 'DLS_21_94D655BACD6A2EC0'
-
 from backend import Style_transfer
 from Images import Preproc, Normalization
 from Gan import GanModel, GanScrypt
+
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
+token = 'DLS_21_94D655BACD6A2EC0'
 
 TOKEN = "1150568558:AAEFFtvnpCI0MKw9IHQbNPoDSVDQjrW5LmU"
 bot = tb.TeleBot(TOKEN)
