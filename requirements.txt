@@ -1,4 +1,4 @@
-Pillow==7.1.2
+Pillow==9.3.0
 pyTelegramBotAPI==3.7.1
 requests==2.22.0
 torch==1.5.1
