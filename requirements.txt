@@ -1,7 +1,7 @@
 Pillow==7.1.2
 pyTelegramBotAPI==3.7.1
 requests==2.22.0
-torch==1.5.1
+torch==1.13.1
 torchvision==0.6.1
 visdom==0.1.8.9
 dominate>=2.3.1
